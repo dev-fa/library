@@ -18,3 +18,25 @@ const theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, false);
 console.log(theHobbit.info());
 const theStranger = new Book("The Stranger", "Albert Camus", 159, true);
 console.log(theStranger.info());
+
+
+// MODAL
+const modalContainer = document.querySelector(".modal-container");
+const openModal = document.querySelector("#open");
+const closeModal = document.querySelector("#close");
+
+openModal.addEventListener("click", () => {
+    modalContainer.setAttribute("style", "display: flex; justify-content:center; align-items: center;");
+});
+
+closeModal.addEventListener("click", () => {
+    modalContainer.style.display = "none";
+});
+
+window.addEventListener("click", outsideClick);
+
+function outsideClick(e) {
+    if (e.target == modalContainer) {
+        modalContainer.style.display = "none";
+    }
+}

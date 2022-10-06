@@ -4,10 +4,73 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>E-Library</title>
     <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <div class="header">
+    <div class="header-container">
+      <h1 class="header-logo">E-Library</h1>
+      <button class="btn btn-log-in">Log In</button>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <div class="container">
+
+      <div class="dashboard">
+        <div class="information">
+          <div class="dashboard-title">Information</div>
+          <ul class="info-list">
+            <li class="info-item"><span class="info-title">Total Books: </span>0</li>
+            <li class="info-item"><span class="info-title">Total Pages: </span>0</li>
+            <li class="info-item"><span class="info-title">Books Completed: </span>0</li>
+            <li class="info-item"><span class="info-title">Book Uncompleted: </span>0</li>
+          </ul>
+        </div>
+        <div class="legend">
+          <div class="dashboard-title">Legends</div>
+          <div class="legend-container">
+            <div class="legend-item"><div class="color-legend-read"></div>Read</div>
+            <div class="legend-item"><div class="color-legend-unread"></div>Not Read</div>
+          </div>
+        </div>
+        <div class="settings">
+          <div class="dashboard-title">Settings</div>
+          <div class="btn-container">
+            <button class="btn btn-add-book">&plus; Add Book</button>
+            <button class="btn btn-delete-all">&minus; Delete All</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="library">
+        <div class="book-card book-completed">
+          <h2>Book Title: <span class="book-title">Sample 1</span></h2>
+          <p>Book Author: <span class="book-author">John Doe</span></p>
+          <p>Pages: <span class="book-pages">100</span></p>
+          <div class="card-btns">
+            <button class="btn btn-outline btn-read-true">&check; Completed</button>
+            <button class="btn btn-outline btn-delete">&minus; Delete</button>
+          </div>
+        </div>
+        <div class="book-card book-uncompleted">
+          <h2>Book Title: <span class="book-title">Sample 2</span></h2>
+          <p>Book Author: <span class="book-author">Jane Doe</span></p>
+          <p>Pages: <span class="book-pages">200</span></p>
+          <div class="card-btns">
+            <button class="btn btn-outline btn-read-false">&times; Uncompleted</button>
+            <button class="btn btn-outline btn-delete">&minus; Delete</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
     
 </body>
 </html>

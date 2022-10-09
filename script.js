@@ -53,30 +53,23 @@ Book.prototype.display = function () {
     const deleteBtn = document.createElement("button");
     deleteBtn.classList.add("btn", "btn-outline", "btn-delete");
     deleteBtn.textContent = "− Delete";
+    deleteBtn.addEventListener("click", deleteBook);
 
     cardBtns.appendChild(btnRead);
     cardBtns.appendChild(deleteBtn);
     bookCard.appendChild(cardBtns);
+    // if (myLibrary.length === 0) {
+    //     bookCard.setAttribute("id", "book-card-0");
+    //     bookCard.bookObject = myLibrary[0];
+    // } else {
+    //     bookCard.setAttribute("id", `book-card-${myLibrary.length-1}`);
+    //     bookCard.bookObject = myLibrary[myLibrary.length-1];
+    // }
+    bookCard.bookObject = this;
 
     library.appendChild(bookCard);
 }
 
-
-function addToLibrary(book, libraryArr) {
-    libraryArr.push(book);
-}
-
-
-const theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, false);
-const theStranger = new Book("The Stranger", "Albert Camus", 159, true);
-
-let myLibrary = []
-addToLibrary(theHobbit, myLibrary);
-addToLibrary(theStranger, myLibrary);
-
-for (let i = 0; i < myLibrary.length; i++) {
-    myLibrary[i].display();
-}
 
 // CREATE NEW BOOK
 function createBook(e) {
@@ -92,6 +85,8 @@ function createBook(e) {
     myLibrary[myLibrary.length - 1].display();
     document.querySelector("form").reset();
     modalContainer.style.display = "none";
+    updateTotalBooks();
+    updateTotalPages();
 }
 
 document.getElementById("submit").addEventListener("click", createBook)
@@ -115,6 +110,63 @@ function toggleReadBtn(e) {
         e.target.textContent = "✓ Completed";
     }
 }
+
+
+// DELETE BOOK
+function deleteBook(e) {
+    const targetElement = e.target.parentElement.parentElement;
+    const targetElementObject = targetElement.bookObject;
+    const index = myLibrary.map(object => object.title).indexOf(targetElementObject.title);
+    myLibrary.splice(index, 1);
+    targetElement.remove();
+    updateTotalBooks();
+    updateTotalPages();
+}
+
+
+// DELETE ALL BOOKS
+function deleteAllBooks() {
+    myLibrary = [];
+    const libraryDisplay = document.querySelector(".library");
+    while (libraryDisplay.firstChild) {
+        libraryDisplay.removeChild(libraryDisplay.lastChild);
+    };
+    updateTotalBooks();
+    updateTotalPages();
+}
+document.getElementById("delete-all").addEventListener("click", deleteAllBooks);
+
+
+// UPDATE TOTAL BOOKS
+function updateTotalBooks() {
+    const totalBooks = document.getElementById("total-books");
+    totalBooks.textContent = myLibrary.length;
+}
+
+
+// UPDATE TOTAL PAGES
+function updateTotalPages() {
+    const totalPages = document.getElementById("total-pages");
+    const allPages = myLibrary.reduce((total, bookPages) => {
+        return total + parseInt(bookPages.pages);
+    }, 0);
+    totalPages.textContent = allPages;
+}
+
+
+// ADD BOOK OBJECT TO LIBRARY
+function addToLibrary(book, libraryArr) {
+    libraryArr.push(book);
+}
+
+
+// ARRAY THAT HOLDS ALL BOOK OBJECTS
+let myLibrary = []
+const exampleBook = new Book("The Example", "John Doe", "100", true);
+addToLibrary(exampleBook, myLibrary);
+myLibrary[0].display();
+updateTotalBooks();
+updateTotalPages();
 
 
 // MODAL

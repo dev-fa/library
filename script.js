@@ -1,73 +1,68 @@
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    read 
-        ? this.readString = "have read" 
-        : this.readString = "not read yet";
-}
-
-
-Book.prototype.info = function () {
-    return `${this.title} by ${this.author}, ${this.pages} pages; ${this.readString}.`;
-}
-
-
-Book.prototype.display = function () {
-    const library = document.querySelector(".library");
-    const bookCard = document.createElement("div");
-    bookCard.classList.add("book-card");
-    const bookTitleDisplay = document.createElement("h2");
-    bookTitleDisplay.classList.add("book-title");
-    const bookAuthorDisplay = document.createElement("span");
-    bookAuthorDisplay.classList.add("book-author");
-    const bookPagesDisplay = document.createElement("span");
-    bookPagesDisplay.classList.add("book-pages");
-
-    bookTitleDisplay.textContent = this.title;
-    bookAuthorDisplay.textContent = "Author: " + this.author;
-    bookPagesDisplay.textContent = "Pages: " + this.pages;
+class Book {
     
-    const btnRead = document.createElement("button");
-    if (this.read) {
-        bookCard.classList.add("book-completed");
-        btnRead.classList.add("btn", "btn-outline", "btn-read-true");
-        btnRead.textContent = "✓ Completed";
-        btnRead.addEventListener("click", toggleReadBtn);
-    } else {
-        bookCard.classList.add("book-uncompleted")
-        btnRead.classList.add("btn", "btn-outline", "btn-read-false");
-        btnRead.textContent = "× Uncompleted";
-        btnRead.addEventListener("click", toggleReadBtn);
+    constructor (title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+        read
+            ? this.readString = "have read"
+            : this.readString = "not read yet";
     }
 
-    bookCard.appendChild(bookTitleDisplay);
-    bookCard.appendChild(bookAuthorDisplay);    
-    bookCard.appendChild(bookPagesDisplay);
+    info = () => {
+        return `${this.title} by ${this.author}, ${this.pages} pages; ${this.readString}.`;
+    }
 
-    const cardBtns = document.createElement("div");
-    cardBtns.classList.add("card-btns");
+    display = () => {
+        const library = document.querySelector(".library");
+        const bookCard = document.createElement("div");
+        bookCard.classList.add("book-card");
+        const bookTitleDisplay = document.createElement("h2");
+        bookTitleDisplay.classList.add("book-title");
+        const bookAuthorDisplay = document.createElement("span");
+        bookAuthorDisplay.classList.add("book-author");
+        const bookPagesDisplay = document.createElement("span");
+        bookPagesDisplay.classList.add("book-pages");
     
-
-    const deleteBtn = document.createElement("button");
-    deleteBtn.classList.add("btn", "btn-outline", "btn-delete");
-    deleteBtn.textContent = "− Delete";
-    deleteBtn.addEventListener("click", deleteBook);
-
-    cardBtns.appendChild(btnRead);
-    cardBtns.appendChild(deleteBtn);
-    bookCard.appendChild(cardBtns);
-    // if (myLibrary.length === 0) {
-    //     bookCard.setAttribute("id", "book-card-0");
-    //     bookCard.bookObject = myLibrary[0];
-    // } else {
-    //     bookCard.setAttribute("id", `book-card-${myLibrary.length-1}`);
-    //     bookCard.bookObject = myLibrary[myLibrary.length-1];
-    // }
-    bookCard.bookObject = this;
-
-    library.appendChild(bookCard);
+        bookTitleDisplay.textContent = this.title;
+        bookAuthorDisplay.textContent = "Author: " + this.author;
+        bookPagesDisplay.textContent = "Pages: " + this.pages;
+        
+        const btnRead = document.createElement("button");
+        if (this.read) {
+            bookCard.classList.add("book-completed");
+            btnRead.classList.add("btn", "btn-outline", "btn-read-true");
+            btnRead.textContent = "✓ Completed";
+            btnRead.addEventListener("click", toggleReadBtn);
+        } else {
+            bookCard.classList.add("book-uncompleted")
+            btnRead.classList.add("btn", "btn-outline", "btn-read-false");
+            btnRead.textContent = "× Uncompleted";
+            btnRead.addEventListener("click", toggleReadBtn);
+        }
+    
+        bookCard.appendChild(bookTitleDisplay);
+        bookCard.appendChild(bookAuthorDisplay);    
+        bookCard.appendChild(bookPagesDisplay);
+    
+        const cardBtns = document.createElement("div");
+        cardBtns.classList.add("card-btns");
+        
+    
+        const deleteBtn = document.createElement("button");
+        deleteBtn.classList.add("btn", "btn-outline", "btn-delete");
+        deleteBtn.textContent = "− Delete";
+        deleteBtn.addEventListener("click", deleteBook);
+    
+        cardBtns.appendChild(btnRead);
+        cardBtns.appendChild(deleteBtn);
+        bookCard.appendChild(cardBtns);
+    
+        bookCard.bookObject = this;
+    
+        library.appendChild(bookCard);
+    }
 }
 
 
@@ -88,8 +83,6 @@ function createBook(e) {
     updateTotalBooks();
     updateTotalPages();
 }
-
-document.getElementById("submit").addEventListener("click", createBook)
 
 
 // TOGGLE READ STATUS
@@ -134,7 +127,6 @@ function deleteAllBooks() {
     updateTotalBooks();
     updateTotalPages();
 }
-document.getElementById("delete-all").addEventListener("click", deleteAllBooks);
 
 
 // UPDATE TOTAL BOOKS
@@ -158,6 +150,10 @@ function updateTotalPages() {
 function addToLibrary(book, libraryArr) {
     libraryArr.push(book);
 }
+
+// BUTTON EVENT LISTENERS
+document.getElementById("submit").addEventListener("click", createBook);
+document.getElementById("delete-all").addEventListener("click", deleteAllBooks);
 
 
 // ARRAY THAT HOLDS ALL BOOK OBJECTS
